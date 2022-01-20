@@ -8,4 +8,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Google.Apis.Drive.v3" Version="1.55.0.2566" />
+  </ItemGroup>
+
 </Project>
