@@ -12,6 +12,7 @@ namespace Snake
             Console.WindowHeight = GlobalConstants.ConsoleHeight;
             Console.BufferHeight = GlobalConstants.ConsoleHeight;
             Console.BufferWidth = GlobalConstants.ConsoleWidth;
+            Console.CursorVisible = false;
 
             IPositionalRenderer renderer = new ConsoleRenderer();
             IReader reader = new ConsoleReader();

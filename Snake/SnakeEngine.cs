@@ -19,7 +19,10 @@ namespace Snake
         {
             this.reader = reader;
             this.renderer = renderer;
-            this.dot = new Dot(renderer, new Direction(), GlobalConstants.Symbol, GlobalConstants.Center);
+            this.dot = new Dot(renderer, new Direction(
+                GlobalConstants.ConsoleWidth, 
+                GlobalConstants.ConsoleHeight), 
+                GlobalConstants.Symbol, GlobalConstants.Center);
         }
 
         public void Start()
