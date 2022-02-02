@@ -13,49 +13,47 @@ namespace Snake
     {
         private readonly IPositionalRenderer renderer;
         private readonly IReader reader;
-        private Dot dot;
+        private Snake snake;
 
         public SnakeEngine(IPositionalRenderer renderer, IReader reader)
         {
             this.reader = reader;
             this.renderer = renderer;
-            this.dot = new Dot(renderer, new Direction(
-                GlobalConstants.ConsoleWidth, 
-                GlobalConstants.ConsoleHeight), 
-                GlobalConstants.Symbol, GlobalConstants.Center);
+            this.snake = SnakeFactory.CreateSnake(renderer);
+            this.snake.Body.Reverse();
         }
 
         public void Start()
         {
             while (true)
             {
-                ChangeDirection();
-                dot.Move();
-                dot.Render();
+                changedirection();
+                this.snake.Render();
+                this.snake.Move();
                 Thread.Sleep(100);
                 Console.Clear();
             }
         }
 
-        private void ChangeDirection()
+        private void changedirection()
         {
-            string keyPressed = reader.ReadKey();
-            if (keyPressed != null)
+            string keypressed = reader.ReadKey();
+            if (keypressed != null)
             {
 
-                switch (keyPressed)
+                switch (keypressed)
                 {
-                    case "LeftArrow":
-                        dot.ChangeDirection(Directions.Left);
+                    case "leftarrow":
+                        snake.Head.ChangeDirection(Directions.Left);
                         break;
-                    case "RightArrow":
-                        dot.ChangeDirection(Directions.Right);
+                    case "rightarrow":
+                        snake.Head.ChangeDirection(Directions.Right);
                         break;
-                    case "UpArrow":
-                        dot.ChangeDirection(Directions.Up);
+                    case "uparrow":
+                        snake.Head.ChangeDirection(Directions.Up);
                         break;
-                    case "DownArrow":
-                        dot.ChangeDirection(Directions.Down);
+                    case "downarrow":
+                        snake.Head.ChangeDirection(Directions.Down);
                         break;
                     default:
                         break;

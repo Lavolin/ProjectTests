@@ -8,34 +8,26 @@ using System.Threading.Tasks;
 
 namespace Snake
 {
-    public class Dot
+    public class Dot : BaseDot
     {
-        private readonly IPositionalRenderer renderer;
+
         private readonly IDirection direction;
-        public Dot(IPositionalRenderer renderer,IDirection direction, string symbol, Coordinate position)
+
+        public Dot(IPositionalRenderer renderer, IDirection direction, string symbol, Coordinate position) : base(renderer, symbol, position)
         {
-            this.renderer = renderer;
-            this.Symbol = symbol;
-            this.Position = position;
             this.direction = direction;
         }
-        public Coordinate Position { get; set; }
-        public string Symbol { get; set; }
-       
 
-        public void Move()
-        {
-            Position = direction.GetNewPosition(Position);
-        }
 
         public void ChangeDirection(Directions direction)
         {
             this.direction.ChangeDirection(direction);
         }
 
-        public void Render()
+
+        public void Move()
         {
-            renderer.WriteAtPosion(Position, Symbol);
+            Position = direction.GetNewPosition(Position);
         }
     }
 

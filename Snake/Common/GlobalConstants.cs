@@ -14,7 +14,10 @@ namespace Snake
 
         public static readonly Coordinate Center = new Coordinate(ConsoleWidth / 2, ConsoleHeight / 2);
 
-        public static string Symbol = "@";
+        public static readonly string Symbol = "*";
+        public static readonly string HeadSymbol = "@";
+
+        public static readonly int InitialSnakeBodySize = 10; 
  
         
     }
