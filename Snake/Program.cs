@@ -16,8 +16,9 @@ namespace Snake
 
             IPositionalRenderer renderer = new ConsoleRenderer();
             IReader reader = new ConsoleReader();
+            IFoodGenerator generator = new FoodGenerator();
 
-            IGameEngine gameEngine = new SnakeEngine(renderer, reader);
+            IGameEngine gameEngine = new SnakeEngine(renderer, reader, generator);
             gameEngine.Start();
 
         }

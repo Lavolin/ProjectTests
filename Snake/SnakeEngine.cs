@@ -12,13 +12,19 @@ namespace Snake
     public class SnakeEngine : IGameEngine
     {
         private readonly IPositionalRenderer renderer;
+        private readonly IFoodGenerator foodGenerator;
         private readonly IReader reader;
         private Snake snake;
+        private Food currentFood; 
 
-        public SnakeEngine(IPositionalRenderer renderer, IReader reader)
+
+        public SnakeEngine(IPositionalRenderer renderer, IReader reader, IFoodGenerator foodGenerator)
         {
             this.reader = reader;
             this.renderer = renderer;
+            this.foodGenerator = foodGenerator;
+            currentFood =  foodGenerator.GenerateFood(renderer);
+
             this.snake = SnakeFactory.CreateSnake(renderer);
             this.snake.Body.Reverse();
         }
@@ -27,15 +33,38 @@ namespace Snake
         {
             while (true)
             {
-                changedirection();
+                
+                ChangeDirection();
+                CheckIfFoodIsEaten();
                 this.snake.Render();
-                this.snake.Move();
+                this.foodGenerator.RenderFood();
+                
+                try
+                {
+
+                    this.snake.Move();
+                }
+                catch (ArgumentException)
+                {
+
+                    Terminate();
+                    return;
+                }
                 Thread.Sleep(100);
-                Console.Clear();
+                this.renderer.Clear();
             }
         }
 
-        private void changedirection()
+        private void CheckIfFoodIsEaten()
+        {
+            if (this.currentFood.Position == this.snake.Head.Position)
+            {
+                this.currentFood = foodGenerator.GenerateFood(renderer);
+                this.snake.EatFood(renderer);
+            }
+        }
+
+        private void ChangeDirection()
         {
             string keypressed = reader.ReadKey();
             if (keypressed != null)
@@ -43,16 +72,16 @@ namespace Snake
 
                 switch (keypressed)
                 {
-                    case "leftarrow":
+                    case "LeftArrow":
                         snake.Head.ChangeDirection(Directions.Left);
                         break;
-                    case "rightarrow":
+                    case "RightArrow":
                         snake.Head.ChangeDirection(Directions.Right);
                         break;
-                    case "uparrow":
+                    case "UpArrow":
                         snake.Head.ChangeDirection(Directions.Up);
                         break;
-                    case "downarrow":
+                    case "DownArrow":
                         snake.Head.ChangeDirection(Directions.Down);
                         break;
                     default:
@@ -64,7 +93,8 @@ namespace Snake
 
         public void Terminate()
         {
-            throw new NotImplementedException();
+            renderer.PrintGameOver();
+
         }
     }
 }

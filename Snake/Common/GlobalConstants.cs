@@ -15,10 +15,16 @@ namespace Snake
         public static readonly Coordinate Center = new Coordinate(ConsoleWidth / 2, ConsoleHeight / 2);
 
         public static readonly string Symbol = "*";
+
         public static readonly string HeadSymbol = "@";
 
-        public static readonly int InitialSnakeBodySize = 10; 
- 
-        
+        public static readonly string FoodSymbol = "#";
+
+        public static readonly int InitialSnakeBodySize = 15;
+
+        public static readonly string GameOverText = "Game Over, get better and come back!!!";
+
+
+
     }
 }

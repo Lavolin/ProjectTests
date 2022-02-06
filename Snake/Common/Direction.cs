@@ -28,36 +28,52 @@ namespace Snake.Common
                 case Directions.Left:
                     if (positionToReturn.X <= 0)
                     {
-                        ChangeDirection(Directions.Right);
-                        return GetNewPosition(position);
-                        
+                        positionToReturn.X = width - 1;
+
                     }
-                    positionToReturn.X--;
+                    else
+                    {
+                        positionToReturn.X--;
+
+                    }
                     break;
+
                 case Directions.Right:
                     if (positionToReturn.X >= width - 1)
                     {
-                        ChangeDirection(Directions.Left);
-                        return GetNewPosition(position);
+                        positionToReturn.X = 0;
                     }
-                    positionToReturn.X++;
+                    else
+                    {
+                        positionToReturn.X++;
+
+                    }
                     break;
+
                 case Directions.Up:
                     if (positionToReturn.Y <= 0)
                     {
-                        ChangeDirection(Directions.Down);
-                        return GetNewPosition(position);
+                        positionToReturn.Y = height - 1;
                     }
-                    positionToReturn.Y--;
+                    else
+                    {
+                        positionToReturn.Y--;
+
+                    }
                     break;
+
                 case Directions.Down:
                     if (positionToReturn.Y >= height - 1)
                     {
-                        ChangeDirection(Directions.Up);
-                        return GetNewPosition(position);
+                        positionToReturn.Y = 0;
                     }
-                    positionToReturn.Y++;
+                    else
+                    {
+
+                        positionToReturn.Y++;
+                    }
                     break;
+
                 default:
                     break;
             }

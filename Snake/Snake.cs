@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Snake.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,14 +26,41 @@ namespace Snake
 
         public void Move()
         {
-            Head.Move();
+            
 
             for (int i = 0; i < Body.Count - 1; i++)
             {
-                Body[i].Position.X = Body[i + 1].Position.X;
-                Body[i].Position.Y = Body[i + 1].Position.Y;
+                Body[i].Position = new Coordinate(Body[i + 1].Position);
             }
 
+            Body[Body.Count - 1].Position = new Coordinate(Head.Position);
+
+            Head.Move();
+
+            if (CheckIfDead())
+            {
+                throw new ArgumentException("We are dead and can't play!!!");
+            }
+            
         }
+
+        public void EatFood(IPositionalRenderer renderer)
+        {
+            Body.Add(new BaseDot(renderer, GlobalConstants.Symbol, new Coordinate(Body[Body.Count - 1].Position)));
+        }
+
+        private bool CheckIfDead()
+        {
+            foreach (var dot in Body)
+            {
+                if (Head.Position.Equals(dot.Position))
+                {
+                    return true;
+                }
+            } 
+            return false;
+        }
+
+        
     }
 }

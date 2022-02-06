@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Snake.Contracts
 {
-    public interface IReader
+    public interface IFoodGenerator
     {
-        string ReadKey(); // will get char code from keyboard
-        void Clear();
+        Food GenerateFood(IPositionalRenderer renderer);
+        void RenderFood();
     }
 }

@@ -9,6 +9,11 @@ namespace Snake.IO
 {
     public class ConsoleReader: IReader
     {
+        public void Clear()
+        {
+            
+        }
+
         public string ReadKey()
         {
             

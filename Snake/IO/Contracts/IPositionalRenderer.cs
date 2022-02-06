@@ -9,5 +9,9 @@ namespace Snake.Contracts
     public interface IPositionalRenderer
     {
         void WriteAtPosion(Coordinate coordinate, object input);
+
+        void Clear();
+
+        void PrintGameOver();
     }
 }
